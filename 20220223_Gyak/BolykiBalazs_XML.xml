@@ -1,0 +1,18 @@
+<?xml version="1.0"?>
+<nyilvantartas>
+
+<etterem Ekod="1">
+	<nev></nev>
+	<csillag></csillag>
+	<cim>
+		<varos></varos>
+		<utca></utca>
+		<hazszam></hazszam>
+	</cim>
+	
+	<foszakacs Fkod="1">
+		
+	</foszakacs>
+</etterem>
+
+</nyilvantartas>
