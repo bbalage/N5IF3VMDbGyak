@@ -1,0 +1,158 @@
+<?xml version="1.0"?>
+<n5if3v>
+
+<etterem Ekod="1">
+	<nev>Trofea</nev>
+	<csillag>4</csillag>
+	<cim>
+		<varos>Budapest</varos>
+		<utca>Visegradi</utca>
+		<hazszam>13</hazszam>
+	</cim>
+	
+	<foszakacs Fkod="1">
+		<nev>Fekete Jonathan</nev>
+		<eletkor>36</eletkor>
+		<vegzettseg>Szakkozep</vegzettseg>
+		<vegzettseg>Szakacs egyetem</vegzettseg>
+	</foszakacs>
+
+	<szakacs Szkod="2">
+		<nev>Tank Tekla</nev>
+		<reszleg>hagymavago konyha</reszleg>
+		<vegzettseg>Szakkozep</vegzettseg>
+		<vegzettseg>Hagymaszelidito kozepiskola</vegzettseg>
+	</szakacs>
+	
+	<szakacs Szkod="3">
+		<nev>Cé Cekla</nev>
+		<reszleg>konyha2</reszleg>
+		<vegzettseg>Szakkozep</vegzettseg>
+	</szakacs>
+
+	<gyakornok Gykod="1">
+		<nev>Zsoltar Zsombor</nev>
+		<gyakorlat>
+			<kezdete>2022.01.05.</kezdete>
+			<vege>2022.03.01.</vege>
+		</gyakorlat>
+		<muszak>hetfo reggel</muszak>
+		<muszak>kedd delutan</muszak>
+		<muszak>szerda delutan</muszak>
+		<muszak>csutortok delutan</muszak>
+		<muszak>pentek delutan</muszak>
+		<muszak>szombat reggel</muszak>
+	</gyakornok>
+</etterem>
+
+<etterem Ekod="2">
+	<nev>Karoly etterem</nev>
+	<csillag>5</csillag>
+	<cim>
+		<varos>Miskolc</varos>
+		<utca>Zenta</utca>
+		<hazszam>15</hazszam>
+	</cim>
+	
+	<foszakacs Fkod="2">
+		<nev>Nagy Feri</nev>
+		<eletkor>55</eletkor>
+		<vegzettseg>Szakkozep</vegzettseg>
+		<vegzettseg>Szakacs foiskola</vegzettseg>
+		<vegzettseg>Slick Foreign University</vegzettseg>
+	</foszakacs>
+
+	<szakacs Szkod="1">
+		<nev>Szak Szabolcs</nev>
+		<reszleg>konyha1</reszleg>
+		<vegzettseg>Szakkozep</vegzettseg>
+	</szakacs>
+
+	<szakacs Szkod="4">
+		<nev>Cékla Huba</nev>
+		<reszleg>konyha3</reszleg>
+		<vegzettseg>Szakkozep</vegzettseg>
+	</szakacs>
+
+	<gyakornok Gykod="2">
+		<nev>Gyak Gyenes</nev>
+		<gyakorlat>
+			<kezdete>2020.04.15.</kezdete>
+			<vege>2020.09.15.</vege>
+		</gyakorlat>
+		<muszak>hetfo reggel</muszak>
+		<muszak>kedd delutan</muszak>
+		<muszak>szerda delutan</muszak>
+		<muszak>csutortok delutan</muszak>
+		<muszak>pentek delutan</muszak>
+	</gyakornok>
+
+	<gyakornok Gykod="3">
+		<nev>Gyepes Gyula</nev>
+		<gyakorlat>
+			<kezdete>2021.04.15.</kezdete>
+			<vege>2022.06.01.</vege>
+		</gyakorlat>
+		<muszak>hetfo reggel</muszak>
+		<muszak>kedd delutan</muszak>
+		<muszak>csutortok delutan</muszak>
+		<muszak>pentek delutan</muszak>
+		<muszak>szombat delutan</muszak>
+	</gyakornok>
+</etterem>
+
+<vendeg Vkod="1">
+	<nev>Hello Klara</nev>
+	<eletkor>44</eletkor>
+	<cim>
+		<varos>Róma</varos>
+		<utca>Vatikán</utca>
+		<hazszam>666</hazszam>
+	</cim>
+</vendeg>
+
+<vendeg Vkod="2">
+	<nev>Papai Jocanka</nev>
+	<eletkor>15</eletkor>
+	<cim>
+		<varos>Ozd</varos>
+		<utca>C</utca>
+		<hazszam>13</hazszam>
+	</cim>
+</vendeg>
+
+<vendeg Vkod="3">
+	<nev>Kecske Laszlo</nev>
+	<eletkor>65</eletkor>
+	<cim>
+		<varos>Miskolc</varos>
+		<utca>Karoly utca</utca>
+		<hazszam>45</hazszam>
+	</cim>
+</vendeg>
+
+<vendeg Vkod="4">
+	<nev>Trambuli Tamas</nev>
+	<eletkor>14</eletkor>
+	<cim>
+		<varos>Becs</varos>
+		<utca>Blitzkrieg</utca>
+		<hazszam>134</hazszam>
+	</cim>
+</vendeg>
+
+<rendeles F_Vkod="1" F_Ekod="1">
+	<osszeg>12344</osszeg>
+	<etel>Sult borju</etel>
+</rendeles>
+
+<rendeles F_Vkod="1" F_Ekod="2">
+	<osszeg>5000</osszeg>
+	<etel>Piritott XML</etel>
+</rendeles>
+
+<rendeles F_Vkod="2" F_Ekod="2">
+	<osszeg>13450</osszeg>
+	<etel>Buggyantott Java</etel>
+</rendeles>
+</n5if3v>
