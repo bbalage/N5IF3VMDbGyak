@@ -1,0 +1,40 @@
+2-A
+xquery version "3.1";
+let $cars := doc('https://raw.githubusercontent.com/altova/XPath-XQuery-SQL-Tutorial/master/data/Cars.xml')/CarsDB/Car
+let $val:=
+for $c in $cars
+ let $a:=xs:integer($c/YearTill)-xs:integer($c/YearFrom)
+ return 
+    $a
+return <Atlagos-piacon-toltott-evek-szama> {avg($val)} </Atlagos-piacon-toltott-evek-szama>
+
+2-B
+xquery version "3.1";
+let $cars := doc('https://raw.githubusercontent.com/altova/XPath-XQuery-SQL-Tutorial/master/data/Cars.xml')/CarsDB/Car
+let $man := doc('https://raw.githubusercontent.com/altova/XPath-XQuery-SQL-Tutorial/master/data/Cars_Manufacturer_Countries.xml')/CCDB/CarCountry
+for $res in 
+(for $c in $cars[Fuel eq 'Diesel'], $m in $man
+where distinct-values($c/Manufacturer) eq $m/Manufacturer
+group by $country := $m/Country
+order by  count($c/Model) descending
+return 
+    <country name="{$country}"> 
+    {count($c/Model)}
+    </country>) [position() = 1 to 5]
+return $res
+
+2-C
+xquery version "3.1";
+declare function local:calcDiscount($year)
+as xs:decimal? {
+    let $currentYear:= fn:year-from-date(fn:current-date())
+    let $discount := ( (xs:integer($currentYear)-xs:integer($year)) * 0.02) 
+    return $discount
+};
+let $cars := doc('https://raw.githubusercontent.com/altova/XPath-XQuery-SQL-Tutorial/master/data/Cars.xml')/CarsDB/Car
+for $c in $cars
+return ( 
+    <Car>
+        <Model> {$c/Model/text()} </Model>
+        <Discount> {local:calcDiscount($c/YearFrom)*100}% </Discount>
+    </Car>)

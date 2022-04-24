@@ -1,0 +1,45 @@
+3-A (cseréld ki a saját cuccaidra <3)
+xquery version "3.1";
+let $ett := doc("https://raw.githubusercontent.com/Sevilda/DW9YG6MDbGyak/main/03.02/VE_XML.xml")/DW9YG6
+for $r in $ett/rendeles, $v in $ett/vendeg
+where $r/@fk_vkod eq $v/@vkod and $r/@fk_ekod
+group by $vendeg := $r/@fk_vkod
+return 
+    <Tartozas>
+    <Vendeg>    {$v/nev/text()} 
+    </Vendeg>
+    <Fizetendo-osszeg> {sum($r/osszeg)} </Fizetendo-osszeg>
+    </Tartozas>
+
+3-B, C
+xquery version "3.1";
+let $ett := doc('etterem.xml')/DW9YG6
+let $result := 
+for $r in $ett/rendeles, $v in $ett/vendeg, $e in $ett/etterem
+where $r/@fk_vkod eq $v/@vkod and $r/@fk_ekod eq $e/@ekod
+return  
+<res> 
+    <ett>{$e} </ett>
+    <vendeg>{$v} </vendeg>
+    <rendeles> {$r} </rendeles>
+</res>
+let $szamla:= 
+for $n in 1 to count($result)
+let $date:= current-dateTime()
+return 
+    <Szamla szkod="{$n}" fk_ekod="{$result[position()=$n]/ett/etterem/@ekod}" fk_vkod="{$result[position()=$n]/vendeg/vendeg/@vkod}">
+    <Fizetendo-osszeg> {$result[position()=$n]/rendeles/rendeles/osszeg/text()} </Fizetendo-osszeg>
+    <Dátum> {$date} </Dátum>
+</Szamla>
+return $szamla
+
+3-C
+Előző, de return $szamla
+helyett
+return update insert $szamla into $ett
+
+3-D
+xquery version "3.1";
+let $ett := doc('etterem.xml')/DW9YG
+for $sz in $ett/Szamla[@fk_ekod eq "e2"]
+return update delete $sz
