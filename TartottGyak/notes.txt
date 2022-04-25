@@ -1,0 +1,42 @@
+https://neo4j.com/download-center/#enterprise
+
+1. feladat:
+A:
+Hozzunk létre User és Tweet nodeokat!
+
+User property-k:
+  - username
+  - country
+
+Tweet property-k:
+  - short
+  - created
+  - text
+  
+create constraint for (u:User) require u.username is unique;
+create constraint for (u:User) require u.username is not null;
+create constraint for (u:User) require u.country is not null;
+
+create constraint for (t:Tweet) require t.short is not null;
+create constraint for (t:Tweet) require t.created is not null;
+create constraint for (t:Tweet) require t.text is not null;
+
+B:
+Vigyünk fel hozzá adatokat!
+
+create (u:User {username:"TRex", country:"USA"});
+create (u:User {username:"Klopacska", country:"Hungary"});
+create (u:User {username:"Pacemaker420", country:"USA"});
+create (u:User {username:"Hamburger", country:"USA"});
+create (u:User {username:"Kittykeh", country:"Hungary"});
+create (u:User {username:"TankYou", country:"Russia"});
+
+create (t:Tweet {short:"My hajzsele isn't working", created:datetime("2019-06-01T18:40:32.142+0100"), text:"This is hajzsele is terrible. I am very offended. Let's hate big company!"});
+create (t:Tweet {short:"Klopacska jó", created:datetime("2020-06-09T18:40:32.142+0100"), text:"Sok barátot szereztem a Klopacskában, de a Tigrises teától a vesém külföldre menekült!"});
+create (t:Tweet {short:"My hajzsele isn't working", created:datetime("2019-06-01T18:40:32.142+0100"), text:"This is hajzsele is terrible. I am very offended. Let's hate big company!"});
+create (t:Tweet {short:"My hajzsele isn't working", created:datetime("2019-06-01T18:40:32.142+0100"), text:"This is hajzsele is terrible. I am very offended. Let's hate big company!"});
+create (t:Tweet {short:"My hajzsele isn't working", created:datetime("2019-06-01T18:40:32.142+0100"), text:"This is hajzsele is terrible. I am very offended. Let's hate big company!"});
+create (t:Tweet {short:"My hajzsele isn't working", created:datetime("2019-06-01T18:40:32.142+0100"), text:"This is hajzsele is terrible. I am very offended. Let's hate big company!"});
+create (t:Tweet {short:"My hajzsele isn't working", created:datetime("2019-06-01T18:40:32.142+0100"), text:"This is hajzsele is terrible. I am very offended. Let's hate big company!"});
+create (t:Tweet {short:"My hajzsele isn't working", created:datetime("2019-06-01T18:40:32.142+0100"), text:"This is hajzsele is terrible. I am very offended. Let's hate big company!"});
+create (t:Tweet {short:"My hajzsele isn't working", created:datetime("2019-06-01T18:40:32.142+0100"), text:"This is hajzsele is terrible. I am very offended. Let's hate big company!"});
