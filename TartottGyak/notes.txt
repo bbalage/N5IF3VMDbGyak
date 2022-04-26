@@ -31,12 +31,53 @@ create (u:User {username:"Hamburger", country:"USA"});
 create (u:User {username:"Kittykeh", country:"Hungary"});
 create (u:User {username:"TankYou", country:"Russia"});
 
-create (t:Tweet {short:"My hajzsele isn't working", created:datetime("2019-06-01T18:40:32.142+0100"), text:"This is hajzsele is terrible. I am very offended. Let's hate big company!"});
-create (t:Tweet {short:"Klopacska jó", created:datetime("2020-06-09T18:40:32.142+0100"), text:"Sok barátot szereztem a Klopacskában, de a Tigrises teától a vesém külföldre menekült!"});
-create (t:Tweet {short:"My hajzsele isn't working", created:datetime("2019-06-01T18:40:32.142+0100"), text:"This is hajzsele is terrible. I am very offended. Let's hate big company!"});
-create (t:Tweet {short:"My hajzsele isn't working", created:datetime("2019-06-01T18:40:32.142+0100"), text:"This is hajzsele is terrible. I am very offended. Let's hate big company!"});
-create (t:Tweet {short:"My hajzsele isn't working", created:datetime("2019-06-01T18:40:32.142+0100"), text:"This is hajzsele is terrible. I am very offended. Let's hate big company!"});
-create (t:Tweet {short:"My hajzsele isn't working", created:datetime("2019-06-01T18:40:32.142+0100"), text:"This is hajzsele is terrible. I am very offended. Let's hate big company!"});
-create (t:Tweet {short:"My hajzsele isn't working", created:datetime("2019-06-01T18:40:32.142+0100"), text:"This is hajzsele is terrible. I am very offended. Let's hate big company!"});
-create (t:Tweet {short:"My hajzsele isn't working", created:datetime("2019-06-01T18:40:32.142+0100"), text:"This is hajzsele is terrible. I am very offended. Let's hate big company!"});
-create (t:Tweet {short:"My hajzsele isn't working", created:datetime("2019-06-01T18:40:32.142+0100"), text:"This is hajzsele is terrible. I am very offended. Let's hate big company!"});
+create (t:Tweet {short:"My hajzsele isn't working", created:datetime("2019-06-01T18:40:32.142+0100"), text:"This is hajzsele is terrible. I am very offended. Let's hate big company!"}); // Kittykeh
+create (t:Tweet {short:"Klopacska jó", created:datetime("2020-06-09T18:40:32.142+0100"), text:"Sok barátot szereztem a Klopacskában, de a Tigrises teától a vesém külföldre menekült!"}); // Klopacska
+create (t:Tweet {short:"I'm extinct.", created:datetime("2021-04-11T11:40:32.142+0100"), text:"LOL, I saw this big meteorite. It was far away and I'm dying to see it close up.!"}); //TRex
+create (t:Tweet {short:"The pace of this movie...", created:datetime("2017-10-22T19:40:30.142+0100"), text:"I was watching SpiderMan and the pacing just isn't right! My pacemaker and the movie set different paces and it's so confusing!"}); //Pacemaker420
+create (t:Tweet {short:"Burger king is p*ssy!", created:datetime("2021-12-01T18:40:32.142+0100"), text:"I was eating Burger king and they gave me a hamburger so small that they should call themselves Burger Queen. I'm gonna say this on TikTok if I fit in the picture..."}); // Hamburger
+create (t:Tweet {short:"McDony is making you fat", created:datetime("2022-03-01T18:40:32.142+0100"), text:"I just realised McDonalds is putting calories into my hamburgers!!! This illuminati atrocity conspiracy thing should be punished!"}); // Hamburger
+create (t:Tweet {short:"It started as a bicycle", created:datetime("2018-12-12T18:40:32.142+0100"), text:"Tavaris! Each and every time I try to make a bicycle it turns out to be a TANK. I cannot be at peace like this!"}); //Tank you
+create (t:Tweet {short:"Happy new year", created:datetime("2020-01-01T18:40:32.142+0100"), text:"Happy New Year for everybody! I vow to make an actual selfie this year. My upper arms shouldn't be a problem!"}); //TRex
+create (t:Tweet {short:"Annal exhibition", created:datetime("2021-02-01T18:40:32.142+0100"), text:"This year as usual I make my annal exhibition. Everyone should come in! This exhibition is held every year annaly! As for those jerks who don't know 'annal' means yearly! I know how to write! Boors..."}); //Kittykeh
+create (t:Tweet {short:"Pink house", created:datetime("2020-06-13T18:40:32.142+0100"), text:"I think the color white is so plain and sterile! Accordingly the White House should be repainted as pink! Please sign the petition!"}); //Kittykeh
+
+match (t:Tweet), (u:User {username:"Kittykeh"}) where t.short="My hajzsele isn't working" create (u)-[:authored]->(t);
+match (t:Tweet), (u:User {username:"Klopacska"}) where t.short="Klopacska jó" create (u)-[:authored]->(t);
+match (t:Tweet), (u:User {username:"TRex"}) where t.short="I'm extinct." create (u)-[:authored]->(t);
+match (t:Tweet), (u:User {username:"Pacemaker420"}) where t.short="The pace of this movie..." create (u)-[:authored]->(t);
+match (t:Tweet), (u:User {username:"Hamburger"}) where t.short="Burger king is p*ssy!" create (u)-[:authored]->(t);
+match (t:Tweet), (u:User {username:"Hamburger"}) where t.short="McDony is making you fat" create (u)-[:authored]->(t);
+match (t:Tweet), (u:User {username:"TankYou"}) where t.short="It started as a bicycle" create (u)-[:authored]->(t);
+match (t:Tweet), (u:User {username:"TRex"}) where t.short="Happy new year" create (u)-[:authored]->(t);
+match (t:Tweet), (u:User {username:"Kittykeh"}) where t.short="Annal exhibition" create (u)-[:authored]->(t);
+match (t:Tweet), (u:User {username:"TRex"}) where t.short="I'm extinct." create (u)-[:authored]->(t);
+match (t:Tweet), (u:User {username:"Kittykeh"}) where t.short="Pink house" create (u)-[:authored]->(t);
+
+C:
+Üssünk be egy tweetet és egy :authored kapcsolatot duplikálva (mintha elrontottuk volna). Töröljük az egyik tweetet és a hozzá tartozó kapcsolatot! (id alapján)
+match (t:Tweet) where id(t)=01234 detach delete t
+
+D:
+Javítsuk Kittikeh hajzselés kommentjében a hajzselét úgy, hogy tartalmazzon ékezetet!
+match (t:Tweet {short:"My hajzsele isn't working"}) set t.short="Hajzselé"
+
+E:
+Helyezzünk el like-okat is relationshipként!
+- Pacemaker420 likeolja Hamburger minden tweetjét!
+- Mindenki likeolja Kittikeh Annual exhibition-ös tweetjét!
+- TRex likeolja TankYou tweetjét.
+match (u1:User {username:"Pacemaker420"}), (u2:User {username:"Hamburger"})-[:authored]-(t:Tweet) create (u1)-[:likes]->(t);
+match (t:Tweet {short:"Annal exhibition"}), (u:User) create (u)-[:likes]->(t)match (t:Tweet {short:"Annal exhibition"}), (u:User) where u.username!="Kittykeh" create (u)-[:likes]->(t);
+match (trex:User {username:"TRex"}), (tank:User {username:"TankYou"})-[:authored]-(t:Tweet) create (trex)-[:likes]->(t);
+
+F:
+Adjuk vissza a felhasználók neveit és hogy ki mennyi tweetet írt!
+match (u:User)-[:authored]->(t:Tweet)
+
+G:
+Adjuk vissza a felhasználók neveit és azt, hogy ki hány likeot gyűjtött!
+
+H:
+Adjuk vissza azt a felhasználót, aki a legtöbbet likeolt!
+
