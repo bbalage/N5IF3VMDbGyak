@@ -1,8 +1,11 @@
 https://neo4j.com/download-center/#enterprise
 
-1. feladat:
+## 1. feladat:
+```
 create database twitter
-A:
+```
+
+### A:
 Hozzunk létre User és Tweet nodeokat!
 
 User property-k:
@@ -13,7 +16,8 @@ Tweet property-k:
   - short
   - created
   - text
-  
+
+```  
 create constraint for (u:User) require u.username is unique;
 create constraint for (u:User) require u.username is not null;
 create constraint for (u:User) require u.country is not null;
@@ -21,10 +25,11 @@ create constraint for (u:User) require u.country is not null;
 create constraint for (t:Tweet) require t.short is not null;
 create constraint for (t:Tweet) require t.created is not null;
 create constraint for (t:Tweet) require t.text is not null;
-
-B:
+```
+### B:
 Vigyünk fel hozzá adatokat!
 
+```
 create (u:User {username:"TRex", country:"USA"});
 create (u:User {username:"Klopacska", country:"Hungary"});
 create (u:User {username:"Pacemaker420", country:"USA"});
@@ -54,50 +59,61 @@ match (t:Tweet), (u:User {username:"TRex"}) where t.short="Happy new year" creat
 match (t:Tweet), (u:User {username:"Kittykeh"}) where t.short="Annal exhibition" create (u)-[:authored]->(t);
 match (t:Tweet), (u:User {username:"TRex"}) where t.short="I'm extinct." create (u)-[:authored]->(t);
 match (t:Tweet), (u:User {username:"Kittykeh"}) where t.short="Pink house" create (u)-[:authored]->(t);
-
-C:
+```
+### C:
 Üssünk be egy tweetet és egy :authored kapcsolatot duplikálva (mintha elrontottuk volna). Töröljük az egyik tweetet és a hozzá tartozó kapcsolatot! (id alapján)
+```
 match (t:Tweet) where id(t)=01234 detach delete t
-
-D:
+```
+### D:
 Javítsuk Kittikeh hajzselés kommentjében a hajzselét úgy, hogy tartalmazzon ékezetet!
+```
 match (t:Tweet {short:"My hajzsele isn't working"}) set t.short="Hajzselé"
-
-E:
+```
+### E:
 Hány felhasználó van az USA-ból?
+```
 match (u:User {country:"USA"}) return count(u)
-
-F:
+```
+### F:
 Helyezzünk el like-okat is relationshipként!
 - Pacemaker420 likeolja Hamburger minden tweetjét!
 - Mindenki likeolja Kittikeh Annual exhibition-ös tweetjét!
 - TRex likeolja TankYou tweetjét.
+
+```
 match (u1:User {username:"Pacemaker420"}), (u2:User {username:"Hamburger"})-[:authored]-(t:Tweet) create (u1)-[:likes]->(t);
 match (t:Tweet {short:"Annal exhibition"}), (u:User) create (u)-[:likes]->(t)match (t:Tweet {short:"Annal exhibition"}), (u:User) where u.username!="Kittykeh" create (u)-[:likes]->(t);
 match (trex:User {username:"TRex"}), (tank:User {username:"TankYou"})-[:authored]-(t:Tweet) create (trex)-[:likes]->(t);
-
-G:
+```
+### G:
 Adjuk vissza a felhasználók neveit és hogy ki mennyi tweetet írt!
+```
 match (u:User)-[:authored]->(t:Tweet) with u.username as username, count(t) as authored return username, authored;
-
-H:
+```
+### H:
 Adjuk vissza azt a felhasználót, aki a legtöbbet likeolt!
+```
 match (u:User)-[:likes]->(t:Tweet) with u.username as username, count(t) as liked return username order by liked desc limit 1
-
-I:
+```
+### I:
 Adjuk vissza a felhasználók neveit és azt, hogy ki hány likeot gyűjtött!
+```
 match (liker:User)-[:likes]->(t:Tweet)<-[:authored]-(author:User) with author.username as username, count(liker) as likers return username, likers
-
-J:
+```
+### J:
 Kreáljunk egy olyan kapcsolatot, ami "körbelájkolást" okoz. (Két felhasználó egymás tweetjét lájkolja). Detektáljuk ezt a körbelájkolást, és rajzoljuk ki a tweetekkel együtt!
+```
 match (u:User {username:"TankYou"}), (t:Tweet {short:"Happy new year"}) create (u)-[:likes]->(t); //Körbelájkolás kreálása
 match (u1:User)-[:authored]->(t1:Tweet)<-[:likes]-(u2:User)-[:authored]->(t2:Tweet)<-[:likes]-(u1:User) return u1, u2, t1, t2 //Körbelájkolás detektálása
+```
 
-2. feladat:
+## 2. feladat:
 create database cities
 
-A: Hozzunk létre városokat és utakat, amik közöttük vezetnek!
-
+### A:
+Hozzunk létre városokat és utakat, amik közöttük vezetnek!
+```
 create (c:City {name:"A"});
 create (c:City {name:"B"});
 create (c:City {name:"C"});
@@ -131,11 +147,14 @@ match (c1:City {name:"N"}), (c2:City {name:"O"}) create (c1)-[:leadsTo {distance
 match (c1:City {name:"O"}), (c2:City {name:"K"}) create (c1)-[:leadsTo {distance: 34}]->(c2);
 match (c1:City {name:"K"}), (c2:City {name:"M"}) create (c1)-[:leadsTo {distance: 54}]->(c2);
 match (c1:City {name:"A"}), (c2:City {name:"H"}) create (c1)-[:leadsTo {distance: 54}]->(c2);
-
-B:
+```
+### B:
 Hány olyan út vezet A városból F városba, ahol pontosan 4 várost kell érinteni?
+```
 match (A:City {name:"A"})-[*4]-(c:City {name:"F"}) with count(A) as rodes return rodes
-
-C:
+```
+### C:
+```
 Melyek azok a városok, ahova A-ból el lehet jutni?
 match (A:City {name:"A"})-[*..]-(c:City) return c
+```
