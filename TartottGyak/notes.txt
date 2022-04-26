@@ -1,6 +1,7 @@
 https://neo4j.com/download-center/#enterprise
 
 1. feladat:
+create database twitter
 A:
 Hozzunk létre User és Tweet nodeokat!
 
@@ -63,6 +64,10 @@ Javítsuk Kittikeh hajzselés kommentjében a hajzselét úgy, hogy tartalmazzon
 match (t:Tweet {short:"My hajzsele isn't working"}) set t.short="Hajzselé"
 
 E:
+Hány felhasználó van az USA-ból?
+match (u:User {country:"USA"}) return count(u)
+
+F:
 Helyezzünk el like-okat is relationshipként!
 - Pacemaker420 likeolja Hamburger minden tweetjét!
 - Mindenki likeolja Kittikeh Annual exhibition-ös tweetjét!
@@ -71,13 +76,58 @@ match (u1:User {username:"Pacemaker420"}), (u2:User {username:"Hamburger"})-[:au
 match (t:Tweet {short:"Annal exhibition"}), (u:User) create (u)-[:likes]->(t)match (t:Tweet {short:"Annal exhibition"}), (u:User) where u.username!="Kittykeh" create (u)-[:likes]->(t);
 match (trex:User {username:"TRex"}), (tank:User {username:"TankYou"})-[:authored]-(t:Tweet) create (trex)-[:likes]->(t);
 
-F:
-Adjuk vissza a felhasználók neveit és hogy ki mennyi tweetet írt!
-match (u:User)-[:authored]->(t:Tweet)
-
 G:
-Adjuk vissza a felhasználók neveit és azt, hogy ki hány likeot gyűjtött!
+Adjuk vissza a felhasználók neveit és hogy ki mennyi tweetet írt!
+match (u:User)-[:authored]->(t:Tweet) with u.username as username, count(t) as authored return username, authored;
 
 H:
 Adjuk vissza azt a felhasználót, aki a legtöbbet likeolt!
+match (u:User)-[:likes]->(t:Tweet) with u.username as username, count(t) as liked return username order by liked desc limit 1
 
+I:
+Adjuk vissza a felhasználók neveit és azt, hogy ki hány likeot gyűjtött!
+match (liker:User)-[:likes]->(t:Tweet)<-[:authored]-(author:User) with author.username as username, count(liker) as likers return username, likers
+
+J:
+Kreáljunk egy olyan kapcsolatot, ami "körbelájkolást" okoz. (Két felhasználó egymás tweetjét lájkolja). Detektáljuk ezt a körbelájkolást, és rajzoljuk ki a tweetekkel együtt!
+match (u:User {username:"TankYou"}), (t:Tweet {short:"Happy new year"}) create (u)-[:likes]->(t); //Körbelájkolás kreálása
+match (u1:User)-[:authored]->(t1:Tweet)<-[:likes]-(u2:User)-[:authored]->(t2:Tweet)<-[:likes]-(u1:User) return u1, u2, t1, t2 //Körbelájkolás detektálása
+
+2. feladat:
+create database cities
+
+A: Hozzunk létre városokat és utakat, amik közöttük vezetnek!
+
+create (c:City {name:"A"});
+create (c:City {name:"B"});
+create (c:City {name:"C"});
+create (c:City {name:"D"});
+create (c:City {name:"E"});
+create (c:City {name:"F"});
+create (c:City {name:"G"});
+create (c:City {name:"H"});
+create (c:City {name:"I"});
+create (c:City {name:"J"});
+create (c:City {name:"K"});
+create (c:City {name:"L"});
+create (c:City {name:"M"});
+create (c:City {name:"N"});
+create (c:City {name:"O"});
+
+match (c1:City {name:"A"}), (c2:City {name:"B"}) create (c1)-[:leadsTo {distance: 12}]->(c2);
+match (c1:City {name:"B"}), (c2:City {name:"C"}) create (c1)-[:leadsTo {distance: 22}]->(c2);
+match (c1:City {name:"C"}), (c2:City {name:"D"}) create (c1)-[:leadsTo {distance: 1}]->(c2);
+match (c1:City {name:"D"}), (c2:City {name:"A"}) create (c1)-[:leadsTo {distance: 11}]->(c2);
+match (c1:City {name:"C"}), (c2:City {name:"E"}) create (c1)-[:leadsTo {distance: 34}]->(c2);
+match (c1:City {name:"E"}), (c2:City {name:"F"}) create (c1)-[:leadsTo {distance: 55}]->(c2);
+match (c1:City {name:"F"}), (c2:City {name:"G"}) create (c1)-[:leadsTo {distance: 14}]->(c2);
+match (c1:City {name:"G"}), (c2:City {name:"H"}) create (c1)-[:leadsTo {distance: 32}]->(c2);
+match (c1:City {name:"H"}), (c2:City {name:"I"}) create (c1)-[:leadsTo {distance: 37}]->(c2);
+match (c1:City {name:"I"}), (c2:City {name:"E"}) create (c1)-[:leadsTo {distance: 48}]->(c2);
+match (c1:City {name:"K"}), (c2:City {name:"L"}) create (c1)-[:leadsTo {distance: 99}]->(c2);
+match (c1:City {name:"L"}), (c2:City {name:"M"}) create (c1)-[:leadsTo {distance: 123}]->(c2);
+match (c1:City {name:"M"}), (c2:City {name:"N"}) create (c1)-[:leadsTo {distance: 3}]->(c2);
+match (c1:City {name:"N"}), (c2:City {name:"O"}) create (c1)-[:leadsTo {distance: 12}]->(c2);
+match (c1:City {name:"O"}), (c2:City {name:"K"}) create (c1)-[:leadsTo {distance: 34}]->(c2);
+match (c1:City {name:"K"}), (c2:City {name:"M"}) create (c1)-[:leadsTo {distance: 54}]->(c2);
+match (c1:City {name:"A"}), (c2:City {name:"H"}) create (c1)-[:leadsTo {distance: 54}]->(c2);
