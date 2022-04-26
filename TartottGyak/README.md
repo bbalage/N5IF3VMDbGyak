@@ -154,7 +154,8 @@ Hány olyan út vezet A városból F városba, ahol pontosan 4 várost kell éri
 match (A:City {name:"A"})-[*4]-(c:City {name:"F"}) with count(A) as rodes return rodes
 ```
 ### C:
-```
+
 Melyek azok a városok, ahova A-ból el lehet jutni?
+```
 match (A:City {name:"A"})-[*..]-(c:City) return c
 ```
