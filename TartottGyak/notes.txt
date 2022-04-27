@@ -73,7 +73,8 @@ Helyezzünk el like-okat is relationshipként!
 - Mindenki likeolja Kittikeh Annual exhibition-ös tweetjét!
 - TRex likeolja TankYou tweetjét.
 match (u1:User {username:"Pacemaker420"}), (u2:User {username:"Hamburger"})-[:authored]-(t:Tweet) create (u1)-[:likes]->(t);
-match (t:Tweet {short:"Annal exhibition"}), (u:User) create (u)-[:likes]->(t)match (t:Tweet {short:"Annal exhibition"}), (u:User) where u.username!="Kittykeh" create (u)-[:likes]->(t);
+match (t:Tweet {short:"Annal exhibition"}), (u:User) create (u)-[:likes]->(t);
+match (t:Tweet {short:"Annal exhibition"}), (u:User) where u.username<>"Kittykeh" create (u)-[:likes]->(t);
 match (trex:User {username:"TRex"}), (tank:User {username:"TankYou"})-[:authored]-(t:Tweet) create (trex)-[:likes]->(t);
 
 G:
