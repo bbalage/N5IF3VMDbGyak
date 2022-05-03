@@ -159,3 +159,62 @@ Melyek azok a városok, ahova A-ból el lehet jutni?
 ```
 match (A:City {name:"A"})-[*..]-(c:City) return c
 ```
+
+# Java API
+
+**Előkészület:**
+Amennyiben fut az adatbázis szerver, állítsuk azt le! Írjuk át a \<neo4j-home\>/conf/neo4j.conf konfigurációs fájlt, hogy a default adatbázis a twitter legyen!
+
+```
+# The name of the default database.
+dbms.default_database=twitter
+```
+
+Ezek után indítsuk az adatbázis szervert a szokásos módon (Linux alatt az alábbi paranccsal).
+
+```
+<neo4j-home>/bin/neo4j start
+```
+
+Készítsünk Eclipse-ben új projektet. Legegyszerűbben úgy lehet kipróbálni a JDBC drivert, ha [letöltjük](https://repo1.maven.org/maven2/org/neo4j/neo4j-jdbc-driver/4.0.5/neo4j-jdbc-driver-4.0.5.jar) a neo4j .jar driverét, és hozzáadjuk a build path-hoz Eclipse-en keresztül.
+
+## 1. feladat
+
+Készítsünk egy programot, ami kilistázza a felhasználóneveket az adatbázisban.
+
+```
+package iit;
+
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.ResultSet;
+import java.sql.Statement;
+
+public class Hello {
+
+	public static void main(String[] args) {
+		try (Connection con = DriverManager.getConnection("jdbc:neo4j:bolt://localhost:7687", "neo4j", "n5if3v");
+				Statement stmt = con.createStatement()) {
+			ResultSet rs = stmt.executeQuery("MATCH (n:User) with n.username as name RETURN name");
+			while (rs.next()) {
+				System.out.println(rs.getString("name"));
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+}
+```
+
+## 2. feladat
+
+Írjunk egy command line applikációt arra, hogy valaki tweetelhessen!
+
+**Ahol az elküldött parancsba user input kerül, ott használjunk PreparedStatement típusú parancsot!**
+
+- A program először kiírja az adatbázisban található felhasználók neveit.
+- Bekéri, hogy ki vagy te.
+- Bekéri a tweetet, amit készíteni akarsz.
+- A beírt szöveg lesz a Tweet *text* mezője, a Tweet első 5 szava *short* mezője, a dátum pedig a mostani pillanat.
+- Elkészíti a tweetet és a kapcsolatot a tweet és a User között, ahol a kapcsolat labelje :authored.
+- Kiírja a sikert, és exitál.
